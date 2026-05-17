@@ -3,7 +3,16 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import PublicLayout from './layouts/PublicLayout.jsx'
 import DashboardLayout from './layouts/DashboardLayout.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
-import Loader from './components/ui/Loader.jsx'
+
+// Thin top progress bar for route transitions. The full-screen Loader only
+// runs once via the inline HTML #boot preloader before React mounts —
+// after that, every lazy chunk load shows just this 2px gradient hint
+// so the user never sees a full-screen "loading…" screen on every click.
+const RouteProgress = () => (
+  <div className="fixed top-0 left-0 right-0 z-[300] h-[2px] bg-white/5 overflow-hidden pointer-events-none">
+    <div className="h-full w-1/3 rounded-full bg-gradient-to-r from-cyan-400 via-violet-500 to-pink-500 loader-bar" />
+  </div>
+)
 
 // Lazy-loaded routes for code splitting
 const Home = lazy(() => import('./pages/public/Home.jsx'))
@@ -37,7 +46,7 @@ const AdminSettings = lazy(() => import('./pages/admin/Settings.jsx'))
 
 export default function App() {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<RouteProgress />}>
       <Routes>
         {/* Public site */}
         <Route element={<PublicLayout />}>
