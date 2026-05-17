@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediCare+ — Premium Multi-Specialty Hospital & 24/7 Emergency Care</title>
+
+    <!-- ===== Primary SEO ===== -->
+    <meta name="description" content="MediCare+ is a premium multi-specialty hospital with 24/7 emergency, expert consultants and modern diagnostics. Book appointments, find doctors and read health insights." />
+    <meta name="keywords" content="hospital, multi-specialty hospital, emergency care, ambulance, cardiology, neurology, pediatrics, doctor appointment, health checkup, MediCare" />
+    <meta name="author" content="MediCare+ Hospital" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0a0e1a" />
+    <meta name="application-name" content="MediCare+" />
+    <link rel="canonical" href="https://medicare.health/" />
+
+    <!-- ===== Open Graph ===== -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MediCare+ Hospital" />
+    <meta property="og:title" content="MediCare+ — Premium Multi-Specialty Hospital & 24/7 Emergency Care" />
+    <meta property="og:description" content="World-class specialists, modern technology and round-the-clock emergency care — all under one roof." />
+    <meta property="og:url" content="https://medicare.health/" />
+    <meta property="og:image" content="https://medicare.health/og-cover.jpg" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ===== Twitter ===== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MediCare+ — Premium Multi-Specialty Hospital" />
+    <meta name="twitter:description" content="Book appointments, browse doctors, request ambulance, read trusted health insights." />
+    <meta name="twitter:image" content="https://medicare.health/og-cover.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- ===== Structured Data: Hospital (MedicalOrganization) ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hospital",
+      "name": "MediCare+ Hospital",
+      "url": "https://medicare.health/",
+      "logo": "https://medicare.health/favicon.svg",
+      "image": "https://medicare.health/og-cover.jpg",
+      "description": "Premium multi-specialty hospital with 24/7 emergency care, expert consultants and modern diagnostics.",
+      "telephone": "+1-800-555-0199",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "24 Wellness Avenue",
+        "addressLocality": "Healthtown",
+        "addressRegion": "NY",
+        "postalCode": "10001",
+        "addressCountry": "US"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      }],
+      "medicalSpecialty": [
+        "Cardiology","Neurology","Orthopedics","Pediatrics","Gynecology",
+        "Radiology","Intensive Care","Emergency Medicine","Internal Medicine","Surgery"
+      ],
+      "sameAs": [
+        "https://facebook.com",
+        "https://twitter.com",
+        "https://instagram.com",
+        "https://linkedin.com"
+      ]
+    }
+    </script>
+
+    <!-- ===== Structured Data: WebSite (sitelinks search box) ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MediCare+ Hospital",
+      "url": "https://medicare.health/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://medicare.health/doctors?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Apply saved theme BEFORE any rendering — prevents flash of wrong theme -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('medicare:theme');
+          var theme = (stored === 'light' || stored === 'dark')
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          var root = document.documentElement;
+          if (theme === 'dark') root.classList.add('dark');
+          root.setAttribute('data-theme', theme);
+        } catch (e) { /* localStorage may be blocked */ }
+      })();
+    </script>
+
+    <!-- ====================================================
+         INSTANT pre-loader — fully inline, zero JS deps.
+         Everything is scoped to #boot; html/body styles stay
+         under the app's own CSS so scrolling never breaks.
+         ==================================================== -->
+    <style>
+      /* ============ Container ============ */
+      #boot {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        background: #04060f; color: #fff;
+        font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+        transition: opacity 0.5s ease;
+        overflow: hidden;
+      }
+      #boot.fade-out { opacity: 0; pointer-events: none; }
+
+      /* ============ Background layers ============ */
+      .b-mesh {
+        position: absolute; inset: 0;
+        background-image:
+          radial-gradient(at 15% 10%, rgba(45,204,255,0.18), transparent 50%),
+          radial-gradient(at 85% 0%,  rgba(139,92,246,0.22), transparent 50%),
+          radial-gradient(at 60% 90%, rgba(236,72,153,0.18), transparent 50%);
+      }
+
+      /* Pulsing dot grid */
+      .b-grid {
+        position: absolute; inset: 0;
+        background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.18) 1px, transparent 0);
+        background-size: 28px 28px;
+        animation: grid-pulse 4s ease-in-out infinite;
+        -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+                mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      }
+      @keyframes grid-pulse {
+        0%,100% { opacity: 0.35; transform: scale(1); }
+        50%     { opacity: 0.85; transform: scale(1.06); }
+      }
+
+      /* Orbiting blobs */
+      .b-blob { position: absolute; border-radius: 9999px; mix-blend-mode: screen; filter: blur(110px); opacity: 0.5; }
+      .b-blob.b1 { top: -8rem; left: -5rem; width: 28rem; height: 28rem; background: #06b6e4; animation: orbit-a 14s ease-in-out infinite; }
+      .b-blob.b2 { bottom: -10rem; right: -8rem; width: 32rem; height: 32rem; background: #8b5cf6; animation: orbit-b 18s ease-in-out infinite; }
+      .b-blob.b3 { top: 25%; right: 25%; width: 18rem; height: 18rem; background: #ec4899; opacity: 0.4; animation: orbit-c 22s ease-in-out infinite; }
+      .b-blob.b4 { bottom: 25%; left: 33%; width: 18rem; height: 18rem; background: #10b981; opacity: 0.3; animation: orbit-a 16s ease-in-out infinite; animation-delay: 5s; }
+      @keyframes orbit-a {
+        0%,100% { transform: translate(0,0) scale(1); }
+        25%     { transform: translate(60px,-40px) scale(1.2); }
+        50%     { transform: translate(-30px,-80px) scale(0.85); }
+        75%     { transform: translate(-50px,30px) scale(1.1); }
+      }
+      @keyframes orbit-b {
+        0%,100% { transform: translate(0,0) scale(1); }
+        33%     { transform: translate(-70px,50px) scale(1.15); }
+        66%     { transform: translate(40px,-60px) scale(0.9); }
+      }
+      @keyframes orbit-c {
+        0%,100% { transform: translate(0,0) scale(1) rotate(0); }
+        50%     { transform: translate(80px,-20px) scale(1.25) rotate(180deg); }
+      }
+
+      /* Floating particles */
+      .particles { position: absolute; inset: 0; overflow: hidden; }
+      .p {
+        position: absolute; bottom: 0;
+        width: 4px; height: 4px;
+        border-radius: 9999px;
+        animation: rise var(--dur,9s) linear infinite;
+        animation-delay: var(--delay,0s);
+      }
+      @keyframes rise {
+        0%   { transform: translate3d(0,100vh,0) scale(.4); opacity: 0; }
+        10%  { opacity: 1; }
+        85%  { opacity: 0.9; }
+        100% { transform: translate3d(var(--drift,0), -10vh, 0) scale(1.1); opacity: 0; }
+      }
+
+      /* Aurora sweeping band */
+      .aurora {
+        position: absolute; top: 0; bottom: 0; left: -25%;
+        width: 50%;
+        background: linear-gradient(90deg, transparent, rgba(34,211,238,0.18), transparent);
+        animation: aurora-sweep 5s ease-in-out infinite;
+      }
+      @keyframes aurora-sweep {
+        0%   { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+        40%  { opacity: 0.6; }
+        100% { transform: translateX(180%) skewX(-12deg); opacity: 0; }
+      }
+
+      /* ============ Center stack ============ */
+      .stack { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; }
+
+      /* Sonar ripples */
+      .sonar {
+        position: absolute; top: 50%; left: 50%;
+        width: 200px; height: 200px;
+        border: 2px solid rgba(34,211,238,0.5);
+        border-radius: 9999px;
+        animation: sonar 3s ease-out infinite;
+        animation-delay: var(--d,0s);
+      }
+      @keyframes sonar {
+        0%   { transform: translate(-50%,-50%) scale(.3); opacity: .7; border-width: 3px; }
+        100% { transform: translate(-50%,-50%) scale(2.6); opacity: 0; border-width: 1px; }
+      }
+
+      /* Logo cluster */
+      .cluster { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
+      .glow {
+        position: absolute; inset: 32px; border-radius: 9999px;
+        background: linear-gradient(135deg,#22d3ee,#8b5cf6,#ec4899);
+        filter: blur(40px); opacity: .55;
+        animation: glow-pulse 2s ease-in-out infinite;
+      }
+      @keyframes glow-pulse {
+        0%,100% { transform: scale(.95); opacity: .4; }
+        50%     { transform: scale(1.15); opacity: .8; }
+      }
+
+      /* Conic aurora ring */
+      .aring {
+        position: absolute; inset: 8px; border-radius: 9999px;
+        background: conic-gradient(from 0deg, transparent 0deg, #22d3ee 60deg, #8b5cf6 180deg, #ec4899 270deg, transparent 360deg);
+        -webkit-mask-image: radial-gradient(transparent 60%, black 62%, black 70%, transparent 72%);
+                mask-image: radial-gradient(transparent 60%, black 62%, black 70%, transparent 72%);
+        animation: spin 4s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes spin-r { to { transform: rotate(-360deg); } }
+
+      /* Orbiting dots */
+      .orbit { position: absolute; }
+      .orbit > i { position: absolute; top: 0; left: 50%; transform: translateX(-50%); border-radius: 9999px; }
+      .o1 { inset: 0; animation: spin 4s linear infinite; }
+      .o1 > i { width: 14px; height: 14px; background: #67e8f9; box-shadow: 0 0 18px rgba(34,211,238,.9); }
+      .o2 { inset: 16px; animation: spin-r 6s linear infinite; }
+      .o2 > i { width: 10px; height: 10px; background: #c4b5fd; box-shadow: 0 0 14px rgba(196,181,253,.9); }
+      .o3 { inset: 32px; animation: spin 9s linear infinite; }
+      .o3 > i { width: 8px; height: 8px; background: #fbcfe8; box-shadow: 0 0 12px rgba(251,207,232,.9); }
+
+      /* Center brand cross — heartbeat */
+      .cross {
+        position: relative;
+        width: 80px; height: 80px;
+        border-radius: 22px;
+        background: linear-gradient(135deg,#22d3ee 0%,#8b5cf6 50%,#ec4899 100%);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 50px rgba(45,204,255,0.45);
+        animation: beat 1.4s ease-in-out infinite;
+      }
+      .cross svg { width: 40px; height: 40px; color: #fff; }
+      @keyframes beat {
+        0%,100% { transform: scale(1); }
+        20%     { transform: scale(1.12); }
+        40%     { transform: scale(.95); }
+        60%     { transform: scale(1.08); }
+        80%     { transform: scale(.97); }
+      }
+
+      /* Wordmark + status */
+      .wordmark {
+        margin-top: 36px;
+        font-size: 36px; font-weight: 800; letter-spacing: -0.02em; text-align: center;
+        background: linear-gradient(110deg,#fff 0%,#67e8f9 25%,#c4b5fd 50%,#fbcfe8 75%,#fff 100%);
+        background-size: 200% 100%;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent;
+        animation: shim 3s linear infinite;
+      }
+      @keyframes shim { from { background-position: -200% 50%; } to { background-position: 200% 50%; } }
+
+      .status {
+        margin-top: 14px;
+        font-size: 11px; letter-spacing: .35em; text-transform: uppercase;
+        color: rgba(255,255,255,0.55); font-weight: 700; text-align: center;
+      }
+      .d { animation: dot 1.4s ease-in-out infinite; opacity: .2; }
+      .d:nth-child(2) { animation-delay: .18s; }
+      .d:nth-child(3) { animation-delay: .36s; }
+      @keyframes dot { 0%,80%,100% { opacity: .2; } 40% { opacity: 1; } }
+
+      .bar {
+        margin-top: 28px; width: 280px; height: 4px;
+        background: rgba(255,255,255,.1); border-radius: 999px; overflow: hidden; position: relative;
+      }
+      .bar > span {
+        position: absolute; inset: 0; width: 33%;
+        background: linear-gradient(90deg,#22d3ee,#8b5cf6,#ec4899);
+        border-radius: 999px;
+        animation: barslide 1.6s cubic-bezier(.65,0,.35,1) infinite;
+      }
+      @keyframes barslide {
+        0%   { transform: translateX(-100%); }
+        100% { transform: translateX(300%); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- ============ INSTANT PRE-LOADER ============ -->
+    <div id="boot" role="status" aria-label="Loading">
+
+      <!-- BG layers -->
+      <div class="b-mesh"></div>
+      <div class="b-grid"></div>
+      <div class="b-blob b1"></div>
+      <div class="b-blob b2"></div>
+      <div class="b-blob b3"></div>
+      <div class="b-blob b4"></div>
+
+      <!-- Floating particles (16) -->
+      <div class="particles">
+        <span class="p" style="left:5%;background:#22d3ee;color:#22d3ee;box-shadow:0 0 12px #22d3ee;--delay:0s;--dur:8s;--drift:30px;"></span>
+        <span class="p" style="left:12%;background:#A6FF5D;color:#A6FF5D;box-shadow:0 0 12px #A6FF5D;--delay:0.6s;--dur:10s;--drift:-20px;"></span>
+        <span class="p" style="left:20%;background:#c4b5fd;color:#c4b5fd;box-shadow:0 0 12px #c4b5fd;--delay:1.2s;--dur:9s;--drift:40px;"></span>
+        <span class="p" style="left:28%;background:#fbcfe8;color:#fbcfe8;box-shadow:0 0 12px #fbcfe8;--delay:1.8s;--dur:11s;--drift:-30px;"></span>
+        <span class="p" style="left:36%;background:#67e8f9;color:#67e8f9;box-shadow:0 0 12px #67e8f9;--delay:2.4s;--dur:8s;--drift:20px;"></span>
+        <span class="p" style="left:44%;background:#22d3ee;color:#22d3ee;box-shadow:0 0 12px #22d3ee;--delay:3s;--dur:9s;--drift:-40px;"></span>
+        <span class="p" style="left:52%;background:#A6FF5D;color:#A6FF5D;box-shadow:0 0 12px #A6FF5D;--delay:0.3s;--dur:10s;--drift:30px;"></span>
+        <span class="p" style="left:60%;background:#c4b5fd;color:#c4b5fd;box-shadow:0 0 12px #c4b5fd;--delay:0.9s;--dur:8s;--drift:-25px;"></span>
+        <span class="p" style="left:68%;background:#fbcfe8;color:#fbcfe8;box-shadow:0 0 12px #fbcfe8;--delay:1.5s;--dur:11s;--drift:35px;"></span>
+        <span class="p" style="left:76%;background:#67e8f9;color:#67e8f9;box-shadow:0 0 12px #67e8f9;--delay:2.1s;--dur:9s;--drift:-15px;"></span>
+        <span class="p" style="left:84%;background:#22d3ee;color:#22d3ee;box-shadow:0 0 12px #22d3ee;--delay:2.7s;--dur:10s;--drift:25px;"></span>
+        <span class="p" style="left:92%;background:#A6FF5D;color:#A6FF5D;box-shadow:0 0 12px #A6FF5D;--delay:3.3s;--dur:8s;--drift:-35px;"></span>
+        <span class="p" style="left:18%;background:#fbcfe8;color:#fbcfe8;box-shadow:0 0 12px #fbcfe8;--delay:4s;--dur:9s;--drift:20px;"></span>
+        <span class="p" style="left:42%;background:#c4b5fd;color:#c4b5fd;box-shadow:0 0 12px #c4b5fd;--delay:4.5s;--dur:10s;--drift:-30px;"></span>
+        <span class="p" style="left:66%;background:#22d3ee;color:#22d3ee;box-shadow:0 0 12px #22d3ee;--delay:5s;--dur:8s;--drift:40px;"></span>
+        <span class="p" style="left:88%;background:#67e8f9;color:#67e8f9;box-shadow:0 0 12px #67e8f9;--delay:5.5s;--dur:9s;--drift:-20px;"></span>
+      </div>
+
+      <!-- Aurora sweep -->
+      <div class="aurora"></div>
+
+      <!-- Center stack -->
+      <div class="stack">
+        <span class="sonar" style="--d:0s"></span>
+        <span class="sonar" style="--d:0.75s"></span>
+        <span class="sonar" style="--d:1.5s"></span>
+        <span class="sonar" style="--d:2.25s"></span>
+
+        <div class="cluster">
+          <div class="glow"></div>
+          <div class="aring"></div>
+
+          <div class="orbit o1"><i></i></div>
+          <div class="orbit o2"><i></i></div>
+          <div class="orbit o3"><i></i></div>
+
+          <div class="cross">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path fill="currentColor" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="wordmark">MediCare+</div>
+        <div class="status">
+          Preparing your care<span class="d">.</span><span class="d">.</span><span class="d">.</span>
+        </div>
+        <div class="bar"><span></span></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
