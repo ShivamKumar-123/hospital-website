@@ -38,6 +38,12 @@ const seedIfEmpty = (key, data) => {
   if (!getData(key, null)) saveData(key, data)
 }
 
+// Bump this any time hospital identity (name, address, phone, UPI, etc.)
+// changes. When the stored brandVersion doesn't match, every existing client
+// auto-migrates to the new defaults on their next page load — no need to ask
+// users to clear localStorage manually.
+const BRAND_SEED_VERSION = 2
+
 export const seedAll = () => {
   // Users — always ensure the env-defined admin + demo patient exist (merge, don't overwrite).
   const SEED_USERS = [
@@ -73,10 +79,13 @@ export const seedAll = () => {
   })
   saveData(KEYS.users, mergedUsers)
 
-  seedIfEmpty(KEYS.settings, {
+  // ===== Settings — versioned brand identity =====
+  // First visit: seed everything. Returning visit with old version: force-refresh
+  // brand fields (name, address, phone, etc.) but preserve user-uploaded logo
+  // and any custom theme color the admin may have set via Admin → Settings.
+  const BRAND_DEFAULTS = {
     hospitalName: CREDS.hospital.name,
     tagline: 'Compassionate Care, Advanced Technology — 24×7.',
-    logo: '',
     address: 'NH 43, Surajpur, Chandarpur, Chhattisgarh 497229',
     phone: '+91 87002 98596',
     emergency: CREDS.hospital.emergency,
@@ -86,10 +95,26 @@ export const seedAll = () => {
     twitter: 'https://twitter.com',
     instagram: 'https://instagram.com',
     linkedin: 'https://linkedin.com',
-    themePrimary: '#0891b2',
     upiId: 'saubhagyam@upi',
     consultationFee: 500
-  })
+  }
+  const existingSettings = getData(KEYS.settings, null)
+  if (!existingSettings) {
+    // First visit ever → full seed
+    saveData(KEYS.settings, {
+      ...BRAND_DEFAULTS,
+      logo: '',
+      themePrimary: '#0891b2',
+      brandVersion: BRAND_SEED_VERSION
+    })
+  } else if (existingSettings.brandVersion !== BRAND_SEED_VERSION) {
+    // Brand was bumped → force-refresh identity fields, preserve user customizations
+    saveData(KEYS.settings, {
+      ...existingSettings,           // keep logo, themePrimary, anything the admin edited
+      ...BRAND_DEFAULTS,             // overwrite identity fields with current defaults
+      brandVersion: BRAND_SEED_VERSION
+    })
+  }
 
   seedIfEmpty(KEYS.departments, [
     { id: 'd1', name: 'Cardiology', description: 'Comprehensive heart care with advanced cath labs and 24/7 cardiac ICU.', icon: 'heart', image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800', doctors: 6, availability: '24/7' },
