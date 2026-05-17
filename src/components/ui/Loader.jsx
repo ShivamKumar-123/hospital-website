@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const ROTATING_MESSAGES = [
-  'Securing your data',
+  'Securing your records',
   'Preparing your care',
-  'Syncing records',
+  'Connecting to Saubhagyam',
   'Almost there'
 ]
 
@@ -118,8 +118,11 @@ export default function Loader() {
 
         {/* Wordmark */}
         <div className="mt-10 text-center">
-          <div className="font-display text-4xl md:text-5xl font-extrabold tracking-tight loader-wordmark">
-            MediCare<span>+</span>
+          <div className="font-display text-3xl md:text-5xl font-extrabold tracking-tight loader-wordmark leading-none">
+            Saubhagyam
+          </div>
+          <div className="mt-2 text-[10px] md:text-xs tracking-[0.4em] font-extrabold text-white/55">
+            HOSPITAL · CHANDARPUR
           </div>
 
           {/* Rotating typewriter status */}
