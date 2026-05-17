@@ -6,7 +6,7 @@ import WaveDivider from '../ui/WaveDivider.jsx'
 export default function Footer() {
   const { settings } = useSettings()
   // Split the hospital name into a big first word + the rest as a tagline,
-  // so any client (Saubhagyam Hospital, MediCare+ etc.) shows correctly.
+  // so any client (Saubhagyam Hospital, Saubhagyam Hospital etc.) shows correctly.
   const parts = (settings.hospitalName || 'Hospital').split(' ')
   const brandLine1 = parts[0]
   const brandLine2 = (parts.slice(1).join(' ') || 'PREMIUM HEALTH').toUpperCase()

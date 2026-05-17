@@ -22,8 +22,8 @@ import { useSeo } from '../../utils/seo.js'
 
 export default function Gallery() {
   useSeo({
-    title: 'Gallery — Inside MediCare+ Hospital',
-    description: 'Take a visual tour of MediCare+ — operating theatres, ICU, diagnostics labs, patient rooms and the people who make our care world-class.',
+    title: 'Gallery — Inside Saubhagyam Hospital',
+    description: 'Take a visual tour of Saubhagyam Hospital — operating theatres, ICU, diagnostics labs, patient rooms and the people who make our care world-class.',
     keywords: ['hospital gallery', 'hospital photos', 'hospital facilities', 'hospital tour'],
     path: '/gallery'
   })

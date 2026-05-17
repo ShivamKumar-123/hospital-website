@@ -11,7 +11,7 @@ import { Stagger, Item } from '../../components/anim/Reveal.jsx'
 import { exportCSV } from '../../utils/storage.js'
 
 const STATUSES = ['Pending', 'Dispatched', 'Completed']
-const EMPTY = { requester: '', phone: '', pickup: '', destination: 'MediCare+ ER', condition: '', status: 'Pending', driver: '', vehicle: '' }
+const EMPTY = { requester: '', phone: '', pickup: '', destination: 'Saubhagyam ER', condition: '', status: 'Pending', driver: '', vehicle: '' }
 
 export default function Ambulance() {
   const { items, add, update, remove } = useLocalCollection('ambulance')

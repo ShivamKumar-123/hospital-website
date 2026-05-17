@@ -71,9 +71,9 @@ import { useSeo } from '../../utils/seo.js'
 
 export default function Home() {
   useSeo({
-    title: 'MediCare+ — Premium Multi-Specialty Hospital & 24/7 Emergency Care',
+    title: 'Saubhagyam Hospital — Premium Multi-Specialty Hospital & 24/7 Emergency Care',
     description: 'World-class specialists, modern technology and round-the-clock emergency care under one roof. Book appointments, find doctors and access expert health insights.',
-    keywords: ['hospital', 'multi-specialty', 'emergency care', 'doctor appointment', 'health checkup', 'MediCare'],
+    keywords: ['hospital', 'multi-specialty', 'emergency care', 'doctor appointment', 'health checkup', 'Saubhagyam'],
     path: '/'
   })
 
@@ -336,7 +336,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================
-          BENTO — Why MediCare+ (premium 3-col grid with mixed sizes)
+          BENTO — Why Saubhagyam Hospital (premium 3-col grid with mixed sizes)
           (same white bg as Stats — flows visually, wave comes after)
           ============================================================ */}
       <section className="section relative bg-white overflow-hidden">
@@ -347,7 +347,7 @@ export default function Home() {
 
         <div className="container-xl relative">
           <Reveal className="text-center max-w-2xl mx-auto">
-            <span className="eyebrow">Why MediCare+</span>
+            <span className="eyebrow">Why Saubhagyam Hospital</span>
             <h2 className="h-section mt-3">Built for outcomes,<br /><span className="text-gradient-cool">designed for humans.</span></h2>
             <p className="sub mx-auto">Modern medicine meets thoughtful design — every detail engineered to make your care faster, smarter and kinder.</p>
           </Reveal>

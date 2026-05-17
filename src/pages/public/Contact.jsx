@@ -10,9 +10,9 @@ import { useSeo } from '../../utils/seo.js'
 
 export default function Contact() {
   useSeo({
-    title: 'Contact MediCare+ — Address, Phone & Emergency Line',
-    description: 'Get in touch with MediCare+. Find our address, 24/7 emergency phone, email, hours and social channels — or send a message directly from the contact form.',
-    keywords: ['contact hospital', 'hospital address', 'emergency phone', 'hospital contact', 'MediCare contact'],
+    title: 'Contact Saubhagyam Hospital — Address, Phone & Emergency Line',
+    description: 'Get in touch with Saubhagyam Hospital. Find our address, 24/7 emergency phone, email, hours and social channels — or send a message directly from the contact form.',
+    keywords: ['contact hospital', 'hospital address', 'emergency phone', 'hospital contact', 'Saubhagyam contact'],
     path: '/contact'
   })
 

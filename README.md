@@ -1,4 +1,4 @@
-# MediCare+ — Premium Hospital Management Website
+# Saubhagyam Hospital — Premium Hospital Management Website
 
 A fully responsive, modern Hospital Management Website with an advanced Admin Dashboard, built with **React + Vite + Tailwind CSS + JavaScript**. Uses **LocalStorage** as a fake backend — no API required.
 

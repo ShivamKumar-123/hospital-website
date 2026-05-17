@@ -39,7 +39,7 @@ export default function Login() {
           <Link to="/" className="flex items-center gap-3">
             <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-brand-500 via-violet-500 to-pink-500 flex items-center justify-center text-2xl font-black shadow-glow">+</div>
             <div>
-              <div className="font-display font-extrabold text-xl">MediCare</div>
+              <div className="font-display font-extrabold text-xl">Saubhagyam</div>
               <div className="text-[10px] tracking-[0.25em] font-bold text-brand-300">PREMIUM HEALTH</div>
             </div>
           </Link>
@@ -78,7 +78,7 @@ export default function Login() {
 
           <Link to="/" className="lg:hidden inline-flex items-center gap-2 mb-8">
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-500 flex items-center justify-center text-white font-black">+</div>
-            <span className="font-display font-extrabold">MediCare</span>
+            <span className="font-display font-extrabold">Saubhagyam</span>
           </Link>
 
           <span className="eyebrow">Admin access</span>

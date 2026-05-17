@@ -30,18 +30,18 @@ import { useSeo } from '../../utils/seo.js'
 
 export default function About() {
   useSeo({
-    title: 'About MediCare+ — Our Mission, Vision & Leadership',
-    description: 'Meet the leadership, values and milestones behind MediCare+ — a premium multi-specialty hospital trusted by 50,000+ patients across cardiology, neurology, pediatrics and more.',
-    keywords: ['about MediCare', 'hospital mission', 'hospital leadership', 'healthcare values'],
+    title: 'About Saubhagyam Hospital — Our Mission, Vision & Leadership',
+    description: 'Meet the leadership, values and milestones behind Saubhagyam Hospital — a premium multi-specialty hospital trusted by 50,000+ patients across cardiology, neurology, pediatrics and more.',
+    keywords: ['about Saubhagyam', 'hospital mission', 'hospital leadership', 'healthcare values'],
     path: '/about'
   })
 
   return (
     <>
       <PageHero
-        eyebrow="About MediCare+"
+        eyebrow="About Saubhagyam Hospital"
         title={<>Two decades of <span className="text-gradient">trusted</span><br />healthcare.</>}
-        subtitle="From a 50-bed clinic to a 500-bed multi-specialty hospital — MediCare+ has been a trusted name for families across the region."
+        subtitle="From a 50-bed clinic to a 500-bed multi-specialty hospital — Saubhagyam Hospital has been a trusted name for families across the region."
       />
 
       <section className="container-xl section">

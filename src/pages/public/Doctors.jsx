@@ -11,7 +11,7 @@ import { useSeo } from '../../utils/seo.js'
 export default function Doctors() {
   useSeo({
     title: 'Our Doctors — Expert Consultants & Specialists',
-    description: 'Browse expert consultants and specialists at MediCare+. Filter by department, view qualifications, experience and availability, then book an appointment online.',
+    description: 'Browse expert consultants and specialists at Saubhagyam Hospital. Filter by department, view qualifications, experience and availability, then book an appointment online.',
     keywords: ['doctors', 'specialists', 'consultants', 'find a doctor', 'hospital doctors'],
     path: '/doctors'
   })

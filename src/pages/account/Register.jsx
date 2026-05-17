@@ -56,7 +56,7 @@ export default function Register() {
     <AuthShell>
       <span className="eyebrow">Create account</span>
       <h1 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mt-3 leading-[1]">
-        Join <span className="text-gradient">MediCare+.</span>
+        Join <span className="text-gradient">Saubhagyam Hospital.</span>
       </h1>
       <p className="text-slate-500 mt-3">Book appointments, store reports and chat with your doctors.</p>
 

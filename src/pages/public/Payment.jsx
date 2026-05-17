@@ -61,7 +61,7 @@ export default function Payment() {
 
   const amount = Number(settings.consultationFee || 500)
   const upiId = settings.upiId || 'medicare@upi'
-  const payeeName = settings.hospitalName || 'MediCare+ Hospital'
+  const payeeName = settings.hospitalName || 'Saubhagyam Hospital'
 
   const upiLink = useMemo(() => {
     const params = new URLSearchParams({

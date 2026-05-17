@@ -12,7 +12,7 @@ import { useSeo } from '../../utils/seo.js'
 
 export default function Ambulance() {
   useSeo({
-    title: '24/7 Emergency Ambulance Service — MediCare+',
+    title: '24/7 Emergency Ambulance Service — Saubhagyam Hospital',
     description: '24/7 GPS-enabled ambulance service with paramedics on board. Request an ambulance online or call our emergency line — golden-hour response across the city.',
     keywords: ['ambulance', 'emergency ambulance', '24/7 ambulance', 'paramedic', 'trauma care', 'emergency response'],
     path: '/ambulance'
@@ -21,7 +21,7 @@ export default function Ambulance() {
   const { settings } = useSettings()
   const { toast } = useToast()
   const { items: live } = useLocalCollection('ambulance')
-  const [form, setForm] = useState({ requester: '', phone: '', pickup: '', destination: 'MediCare+ ER', condition: '' })
+  const [form, setForm] = useState({ requester: '', phone: '', pickup: '', destination: 'Saubhagyam ER', condition: '' })
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
 
   const submit = (e) => {
@@ -30,7 +30,7 @@ export default function Ambulance() {
     addRecord('ambulance', { ...form, status: 'Pending', driver: '', vehicle: '' })
     addRecord('notifications', { title: 'Ambulance requested', message: `${form.requester} from ${form.pickup}`, type: 'emergency', read: false })
     toast('Ambulance dispatch in progress!', 'success')
-    setForm({ requester: '', phone: '', pickup: '', destination: 'MediCare+ ER', condition: '' })
+    setForm({ requester: '', phone: '', pickup: '', destination: 'Saubhagyam ER', condition: '' })
   }
 
   return (

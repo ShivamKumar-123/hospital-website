@@ -12,7 +12,7 @@ import { useSeo } from '../../utils/seo.js'
 export default function Blog() {
   useSeo({
     title: 'Health Blog & Insights — Tips, Guides & Recovery Stories',
-    description: 'Trusted health articles, guides and recovery stories written by MediCare+ consultants. Read about cardiology, pediatrics, orthopedics, wellness and more.',
+    description: 'Trusted health articles, guides and recovery stories written by Saubhagyam Hospital consultants. Read about cardiology, pediatrics, orthopedics, wellness and more.',
     keywords: ['health blog', 'medical articles', 'wellness tips', 'health guide', 'recovery stories'],
     path: '/blog',
     type: 'article'

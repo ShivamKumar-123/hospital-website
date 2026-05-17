@@ -1,4 +1,4 @@
-# MediCare+ — Complete Feature List
+# Saubhagyam Hospital — Complete Feature List
 
 A premium Hospital Management Website built with **React 18 + Vite + Tailwind CSS**. Uses **LocalStorage** as a fake backend — no API/server required.
 
@@ -219,7 +219,7 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 - Mesh gradient, dot grid pulse, 4 orbiting blobs
 - Floating particles, aurora sweep
 - Sonar ripples + conic aurora ring + orbiting dots
-- Animated MediCare+ wordmark with shimmer
+- Animated Saubhagyam Hospital wordmark with shimmer
 - Smooth fade-out once React mounts
 
 ### 5.5 Components

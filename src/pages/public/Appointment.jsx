@@ -14,8 +14,8 @@ const PENDING_KEY = 'medicare:pending-appointment'
 
 export default function Appointment() {
   useSeo({
-    title: 'Book an Appointment Online — MediCare+ Hospital',
-    description: 'Book your doctor appointment online at MediCare+. Choose your department, pick a specialist, select a date & time — confirmation in seconds.',
+    title: 'Book an Appointment Online — Saubhagyam Hospital',
+    description: 'Book your doctor appointment online at Saubhagyam Hospital. Choose your department, pick a specialist, select a date & time — confirmation in seconds.',
     keywords: ['book appointment', 'doctor appointment online', 'hospital booking', 'consultation'],
     path: '/appointment'
   })

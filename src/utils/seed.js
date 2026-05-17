@@ -156,7 +156,7 @@ export const seedAll = () => {
   ])
 
   seedIfEmpty(KEYS.ambulance, [
-    { id: 'am1', requester: 'John Doe', phone: '+1 555 9001', pickup: '52 Birch Lane', destination: 'MediCare+ ER', condition: 'Road accident', status: 'Dispatched', driver: 'Mark Tanner', vehicle: 'AMB-204', createdAt: new Date().toISOString() }
+    { id: 'am1', requester: 'John Doe', phone: '+1 555 9001', pickup: '52 Birch Lane', destination: 'Saubhagyam ER', condition: 'Road accident', status: 'Dispatched', driver: 'Mark Tanner', vehicle: 'AMB-204', createdAt: new Date().toISOString() }
   ])
 
   seedIfEmpty(KEYS.blogs, [

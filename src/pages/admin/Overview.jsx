@@ -52,7 +52,7 @@ export default function Overview() {
             <h1 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight mt-2">
               Welcome back, <span className="text-gradient">Admin.</span>
             </h1>
-            <p className="text-ink-500 text-sm mt-1">Here's what's happening at MediCare+ today.</p>
+            <p className="text-ink-500 text-sm mt-1">Here's what's happening at Saubhagyam Hospital today.</p>
           </div>
         </div>
       </Reveal>

@@ -11,7 +11,7 @@ import { useSeo } from '../../utils/seo.js'
 export default function Departments() {
   useSeo({
     title: 'Departments & Specialties — Cardiology, Neurology, Pediatrics & More',
-    description: 'Explore 10+ specialty departments at MediCare+ — Cardiology, Neurology, Orthopedics, Pediatrics, Gynecology, Radiology, ICU, Emergency, General Medicine and Surgery.',
+    description: 'Explore 10+ specialty departments at Saubhagyam Hospital — Cardiology, Neurology, Orthopedics, Pediatrics, Gynecology, Radiology, ICU, Emergency, General Medicine and Surgery.',
     keywords: ['hospital departments', 'cardiology', 'neurology', 'orthopedics', 'pediatrics', 'gynecology', 'ICU', 'emergency care'],
     path: '/departments'
   })

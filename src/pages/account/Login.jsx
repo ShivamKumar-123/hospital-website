@@ -72,7 +72,7 @@ export default function Login() {
       </form>
 
       <p className="text-center text-sm text-slate-500 mt-6">
-        New to MediCare? <Link to="/account/register" className="text-cyan-700 font-bold hover:underline">Create an account</Link>
+        New to Saubhagyam? <Link to="/account/register" className="text-cyan-700 font-bold hover:underline">Create an account</Link>
       </p>
       <p className="text-center text-xs text-slate-400 mt-3">
         Hospital staff? <Link to="/login" className="text-slate-600 hover:underline">Admin login</Link>
