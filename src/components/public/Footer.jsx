@@ -5,6 +5,11 @@ import WaveDivider from '../ui/WaveDivider.jsx'
 
 export default function Footer() {
   const { settings } = useSettings()
+  // Split the hospital name into a big first word + the rest as a tagline,
+  // so any client (Saubhagyam Hospital, MediCare+ etc.) shows correctly.
+  const parts = (settings.hospitalName || 'Hospital').split(' ')
+  const brandLine1 = parts[0]
+  const brandLine2 = (parts.slice(1).join(' ') || 'PREMIUM HEALTH').toUpperCase()
   return (
     <>
       {/* ============================================================
@@ -114,8 +119,8 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-cyan-400 via-violet-500 to-pink-500 flex items-center justify-center text-2xl font-black">+</div>
               <div>
-                <div className="font-display font-extrabold text-xl">MediCare</div>
-                <div className="text-[10px] tracking-[0.25em] font-bold text-cyan-300">PREMIUM HEALTH</div>
+                <div className="font-display font-extrabold text-xl">{brandLine1}</div>
+                <div className="text-[10px] tracking-[0.25em] font-bold text-cyan-300">{brandLine2}</div>
               </div>
             </Link>
             <p className="mt-5 text-white/60 max-w-md leading-relaxed">

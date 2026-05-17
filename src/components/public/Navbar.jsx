@@ -29,6 +29,11 @@ export default function Navbar() {
 
   const onHomeHero = pathname === '/' && !scrolled
 
+  // Derived brand text — same split rule as the Footer so navbar/footer stay in sync.
+  const parts = (settings.hospitalName || 'Hospital').split(' ')
+  const brandLine1 = parts[0]
+  const brandLine2 = (parts.slice(1).join(' ') || 'PREMIUM HEALTH').toUpperCase()
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll)
@@ -69,8 +74,8 @@ export default function Navbar() {
               <span className="text-lg">+</span>
             </div>
             <div className="leading-tight">
-              <div className={`font-display font-extrabold ${onHomeHero ? 'text-white' : 'text-slate-900'}`}>MediCare</div>
-              <div className={`text-[10px] tracking-widest font-bold -mt-0.5 ${onHomeHero ? 'text-cyan-300' : 'text-cyan-600'}`}>PREMIUM HEALTH</div>
+              <div className={`font-display font-extrabold ${onHomeHero ? 'text-white' : 'text-slate-900'}`}>{brandLine1}</div>
+              <div className={`text-[10px] tracking-widest font-bold -mt-0.5 ${onHomeHero ? 'text-cyan-300' : 'text-cyan-600'}`}>{brandLine2}</div>
             </div>
           </Link>
 

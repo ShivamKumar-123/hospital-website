@@ -29,8 +29,8 @@ export const CREDS = {
     phone:    ENV.VITE_DEMO_USER_PHONE    || '+1 555 0100'
   },
   hospital: {
-    name:      ENV.VITE_HOSPITAL_NAME    || 'MediCare+ Hospital',
-    emergency: ENV.VITE_EMERGENCY_PHONE  || '+1 (800) 911-0000'
+    name:      ENV.VITE_HOSPITAL_NAME    || 'SAUBHAGYAM HOSPITAL',
+    emergency: ENV.VITE_EMERGENCY_PHONE  || '+91 87002 98596'
   }
 }
 
@@ -75,19 +75,19 @@ export const seedAll = () => {
 
   seedIfEmpty(KEYS.settings, {
     hospitalName: CREDS.hospital.name,
-    tagline: 'Healing with Heart, Technology with Trust',
+    tagline: 'Compassionate Care, Advanced Technology — 24×7.',
     logo: '',
-    address: '24 Wellness Avenue, Healthtown, NY 10001',
-    phone: '+1 (800) 555-0199',
+    address: 'NH 43, Surajpur, Chandarpur, Chhattisgarh 497229',
+    phone: '+91 87002 98596',
     emergency: CREDS.hospital.emergency,
-    email: 'contact@medicare.health',
+    email: 'contact@saubhagyamhospital.com',
     hours: 'Open 24/7 — Emergency & ICU',
     facebook: 'https://facebook.com',
     twitter: 'https://twitter.com',
     instagram: 'https://instagram.com',
     linkedin: 'https://linkedin.com',
     themePrimary: '#0891b2',
-    upiId: 'medicare@upi',
+    upiId: 'saubhagyam@upi',
     consultationFee: 500
   })
 

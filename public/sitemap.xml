@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://medicare.health/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://medicare.health/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://medicare.health/departments</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://medicare.health/doctors</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://medicare.health/appointment</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://medicare.health/packages</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://medicare.health/ambulance</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://medicare.health/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://medicare.health/gallery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://medicare.health/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saubhagyamhospital.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://saubhagyamhospital.com/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saubhagyamhospital.com/departments</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://saubhagyamhospital.com/doctors</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://saubhagyamhospital.com/appointment</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://saubhagyamhospital.com/packages</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saubhagyamhospital.com/ambulance</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saubhagyamhospital.com/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saubhagyamhospital.com/gallery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://saubhagyamhospital.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

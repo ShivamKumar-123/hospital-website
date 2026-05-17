@@ -1,11 +1,18 @@
-import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import Sidebar from '../components/dashboard/Sidebar.jsx'
 import Topbar from '../components/dashboard/Topbar.jsx'
 import AnimatedBackground from '../components/anim/AnimatedBackground.jsx'
 
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+
+  // Auto-close the mobile sidebar whenever the route changes.
+  // This catches every navigation path — clicking a NavLink, browser back,
+  // logo click, programmatic navigate — without depending on per-link handlers.
+  useEffect(() => { setOpen(false) }, [pathname])
+
   return (
     <>
       <AnimatedBackground variant="dashboard" />

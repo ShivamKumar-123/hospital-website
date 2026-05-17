@@ -7,12 +7,15 @@ import { useEffect } from 'react'
 // Override at build time with VITE_SITE_URL=https://your-domain.com
 const SITE_URL =
   (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_SITE_URL) ||
-  'https://medicare.health'
+  'https://saubhagyamhospital.com'
 
-const SITE_NAME = 'MediCare+ Hospital'
+const SITE_NAME =
+  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_HOSPITAL_NAME) ||
+  'Saubhagyam Hospital'
+
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-cover.jpg`
 const DEFAULT_DESCRIPTION =
-  'MediCare+ is a premium multi-specialty hospital with 24/7 emergency, expert consultants and modern diagnostics. Book appointments, find doctors and read health insights.'
+  'Saubhagyam Hospital — multi-specialty hospital on NH-43 in Chandarpur, Surajpur, Chhattisgarh. 24×7 emergency care, expert consultants, ambulance and modern diagnostics.'
 
 // Find an existing tag matching the attr/value, or create one.
 const upsertMeta = (attr, value, content) => {

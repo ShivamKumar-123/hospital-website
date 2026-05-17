@@ -6,4 +6,4 @@ Disallow: /login
 Disallow: /account
 Disallow: /account/
 
-Sitemap: https://medicare.health/sitemap.xml
+Sitemap: https://saubhagyamhospital.com/sitemap.xml
