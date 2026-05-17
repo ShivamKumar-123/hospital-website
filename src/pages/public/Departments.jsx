@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { Search, Users, Clock, ArrowUpRight } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Search, Users, ArrowUpRight } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import PageHero from '../../components/public/PageHero.jsx'
 import { Stagger, Item } from '../../components/anim/Reveal.jsx'
@@ -18,11 +18,15 @@ export default function Departments() {
 
   const { items } = useLocalCollection('departments')
   const [q, setQ] = useState('')
+  const navigate = useNavigate()
 
   const filtered = useMemo(() => {
     const term = q.toLowerCase()
     return items.filter((d) => d.name.toLowerCase().includes(term) || d.description.toLowerCase().includes(term))
   }, [q, items])
+
+  const goToDoctors = (deptName) =>
+    navigate('/doctors', { state: { department: deptName } })
 
   return (
     <>
@@ -42,7 +46,13 @@ export default function Departments() {
           {filtered.map((d, i) => (
             <Item key={d.id}>
               <Tilt max={5}>
-                <div className="card card-hover overflow-hidden group h-full">
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => goToDoctors(d.name)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToDoctors(d.name) } }}
+                  className="card card-hover overflow-hidden group h-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-400"
+                >
                   <div className="relative h-56 overflow-hidden">
                     <img src={d.image} alt={d.name} className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-transparent" />
@@ -56,9 +66,9 @@ export default function Departments() {
                     <p className="text-ink-500 text-sm leading-relaxed line-clamp-2">{d.description}</p>
                     <div className="flex items-center justify-between mt-5">
                       <span className="text-xs text-ink-500 flex items-center gap-1"><Users /> {d.doctors} specialists</span>
-                      <Link to="/doctors" className="inline-flex items-center gap-1 text-brand-600 font-bold text-sm group-hover:gap-2 transition">
+                      <span className="inline-flex items-center gap-1 text-brand-600 font-bold text-sm group-hover:gap-2 transition">
                         See doctors <ArrowUpRight />
-                      </Link>
+                      </span>
                     </div>
                   </div>
                 </div>

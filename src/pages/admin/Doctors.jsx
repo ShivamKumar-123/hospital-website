@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Plus, Search, Pencil, Trash2, Download, Upload, User } from 'lucide-react'
+import { Plus, Search, Pencil, Trash2, Download, Upload, User, Stethoscope } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import Modal from '../../components/ui/Modal.jsx'
@@ -92,7 +92,7 @@ export default function Doctors() {
         </Stagger>
       )}
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit doctor' : 'Add doctor'} size="lg">
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit doctor' : 'Add doctor'} subtitle={editId ? 'Update doctor profile.' : 'Add a new doctor to the directory.'} size="lg" icon={<Stethoscope size={20} />} intent={editId ? 'info' : 'default'}>
         <form onSubmit={save} className="grid sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2 flex items-center gap-4">
             {form.photo ? <img src={form.photo} className="h-16 w-16 rounded-2xl object-cover" /> : <div className="h-16 w-16 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center"><User size={26} /></div>}

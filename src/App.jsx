@@ -11,6 +11,7 @@ const About = lazy(() => import('./pages/public/About.jsx'))
 const Departments = lazy(() => import('./pages/public/Departments.jsx'))
 const Doctors = lazy(() => import('./pages/public/Doctors.jsx'))
 const Appointment = lazy(() => import('./pages/public/Appointment.jsx'))
+const Payment = lazy(() => import('./pages/public/Payment.jsx'))
 const Packages = lazy(() => import('./pages/public/Packages.jsx'))
 const Ambulance = lazy(() => import('./pages/public/Ambulance.jsx'))
 const Blog = lazy(() => import('./pages/public/Blog.jsx'))
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/departments" element={<Departments />} />
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/appointment" element={<Appointment />} />
+          <Route path="/appointment/payment" element={<Payment />} />
           <Route path="/packages" element={<Packages />} />
           <Route path="/ambulance" element={<Ambulance />} />
           <Route path="/blog" element={<Blog />} />

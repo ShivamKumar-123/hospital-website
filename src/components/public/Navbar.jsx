@@ -11,6 +11,7 @@ const LINKS = [
   { to: '/about', label: 'About' },
   { to: '/departments', label: 'Departments' },
   { to: '/doctors', label: 'Doctors' },
+  { to: '/appointment', label: 'Appointment' },
   { to: '/packages', label: 'Packages' },
   { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' }

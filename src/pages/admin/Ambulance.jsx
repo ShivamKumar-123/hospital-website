@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Plus, Pencil, Trash2, Download, Search } from 'lucide-react'
+import { Plus, Pencil, Trash2, Download, Search, Truck } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import Modal from '../../components/ui/Modal.jsx'
@@ -101,7 +101,7 @@ export default function Ambulance() {
         )}
       </div>
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit request' : 'New ambulance request'}>
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit request' : 'New ambulance request'} subtitle={editId ? 'Update dispatch details.' : 'Log a new emergency dispatch.'} icon={<Truck size={20} />} intent={editId ? 'info' : 'warning'}>
         <form onSubmit={save} className="grid sm:grid-cols-2 gap-4">
           <div><label className="label">Requester *</label><input className="input" value={form.requester} onChange={(e) => setForm({ ...form, requester: e.target.value })} /></div>
           <div><label className="label">Phone</label><input className="input" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></div>

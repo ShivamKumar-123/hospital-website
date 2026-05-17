@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Plus, Search, Download, Pencil, Trash2, Check, X } from 'lucide-react'
+import { Plus, Search, Download, Pencil, Trash2, Check, X, Eye, ShieldCheck, Image as ImageIcon, Calendar } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import Modal from '../../components/ui/Modal.jsx'
@@ -11,7 +11,7 @@ import PageHeader from '../../components/dashboard/PageHeader.jsx'
 import { exportCSV } from '../../utils/storage.js'
 
 const EMPTY = { patientName: '', phone: '', department: '', doctor: '', date: '', time: '', symptoms: '', status: 'Pending' }
-const STATUSES = ['Pending', 'Approved', 'Completed', 'Rejected']
+const STATUSES = ['Pending', 'Pending Verification', 'Approved', 'Completed', 'Rejected']
 
 export default function Appointments() {
   const { items, add, update, remove } = useLocalCollection('appointments')
@@ -26,6 +26,7 @@ export default function Appointments() {
   const [editId, setEditId] = useState(null)
   const [form, setForm] = useState(EMPTY)
   const [delId, setDelId] = useState(null)
+  const [viewPayment, setViewPayment] = useState(null)
 
   const filtered = useMemo(() => {
     return items.filter((a) =>
@@ -50,6 +51,18 @@ export default function Appointments() {
   }
 
   const setStatusFor = (id, st) => { update(id, { status: st }); toast(`Marked ${st}`, 'success') }
+
+  const verifyPayment = (a) => {
+    update(a.id, { status: 'Approved', paymentStatus: 'Verified', verifiedAt: new Date().toISOString() })
+    toast(`Payment verified · ${a.patientName} confirmed`, 'success')
+    setViewPayment(null)
+  }
+
+  const rejectPayment = (a) => {
+    update(a.id, { status: 'Rejected', paymentStatus: 'Rejected', verifiedAt: new Date().toISOString() })
+    toast(`Payment rejected · ${a.patientName}`, 'error')
+    setViewPayment(null)
+  }
 
   return (
     <div className="space-y-5">
@@ -77,9 +90,9 @@ export default function Appointments() {
       <div className="card overflow-hidden">
         {slice.length === 0 ? <EmptyState title="No appointments" /> : (
           <div className="overflow-x-auto">
-            <table className="table-pro min-w-[800px]">
+            <table className="table-pro min-w-[960px]">
               <thead>
-                <tr><th>Patient</th><th>Department</th><th>Doctor</th><th>Date / Time</th><th>Status</th><th className="text-right">Actions</th></tr>
+                <tr><th>Patient</th><th>Department</th><th>Doctor</th><th>Date / Time</th><th>Status</th><th>Payment</th><th className="text-right">Actions</th></tr>
               </thead>
               <tbody>
                 {slice.map((a) => (
@@ -93,11 +106,31 @@ export default function Appointments() {
                     <td>{a.date} · {a.time}</td>
                     <td><StatusBadge status={a.status} /></td>
                     <td>
+                      {a.paymentScreenshot ? (
+                        <button onClick={() => setViewPayment(a)} className="group flex items-center gap-2 text-left">
+                          <img src={a.paymentScreenshot} alt="payment" className="h-10 w-10 rounded-lg object-cover ring-1 ring-ink-200 group-hover:ring-brand-400 transition" />
+                          <div>
+                            <div className="text-xs font-bold text-ink-900">₹{Number(a.paymentAmount || 0).toLocaleString('en-IN')}</div>
+                            <div className={`text-[10px] font-semibold ${a.paymentStatus === 'Verified' ? 'text-emerald-600' : a.paymentStatus === 'Rejected' ? 'text-rose-600' : 'text-amber-600'}`}>
+                              {a.paymentStatus || 'Awaiting'}
+                            </div>
+                          </div>
+                        </button>
+                      ) : (
+                        <span className="text-xs text-ink-400 flex items-center gap-1.5"><ImageIcon size={12} /> No payment</span>
+                      )}
+                    </td>
+                    <td>
                       <div className="flex justify-end gap-1.5">
+                        {a.status === 'Pending Verification' && <>
+                          <button title="Verify payment" onClick={() => verifyPayment(a)} className="h-8 w-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-100 hover:scale-110 transition"><ShieldCheck size={16} /></button>
+                          <button title="Reject payment" onClick={() => rejectPayment(a)} className="h-8 w-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center hover:bg-rose-100 hover:scale-110 transition"><X /></button>
+                        </>}
                         {a.status === 'Pending' && <>
                           <button title="Approve" onClick={() => setStatusFor(a.id, 'Approved')} className="h-8 w-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-100 hover:scale-110 transition"><Check /></button>
                           <button title="Reject" onClick={() => setStatusFor(a.id, 'Rejected')} className="h-8 w-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center hover:bg-rose-100 hover:scale-110 transition"><X /></button>
                         </>}
+                        {a.paymentScreenshot && <button title="View payment" onClick={() => setViewPayment(a)} className="h-8 w-8 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center hover:bg-brand-100 hover:scale-110 transition"><Eye size={16} /></button>}
                         <button title="Edit" onClick={() => openEdit(a)} className="h-8 w-8 rounded-xl bg-ink-50 text-ink-700 flex items-center justify-center hover:bg-ink-100 hover:scale-110 transition"><Pencil /></button>
                         <button title="Delete" onClick={() => setDelId(a.id)} className="h-8 w-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center hover:bg-rose-100 hover:scale-110 transition"><Trash2 /></button>
                       </div>
@@ -111,7 +144,7 @@ export default function Appointments() {
         <div className="px-4 pb-4"><Pagination page={page} pages={pages} onPage={setPage} /></div>
       </div>
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit appointment' : 'New appointment'}>
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit appointment' : 'New appointment'} icon={<Calendar size={20} />} intent={editId ? 'info' : 'default'}>
         <form onSubmit={save} className="grid sm:grid-cols-2 gap-4">
           <div><label className="label">Patient name *</label><input className="input" value={form.patientName} onChange={(e) => setForm({ ...form, patientName: e.target.value })} /></div>
           <div><label className="label">Phone</label><input className="input" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></div>
@@ -143,6 +176,65 @@ export default function Appointments() {
       </Modal>
 
       <ConfirmDialog open={!!delId} onClose={() => setDelId(null)} onConfirm={() => { remove(delId); toast('Appointment deleted', 'success') }} message="This appointment will be permanently removed." />
+
+      <Modal open={!!viewPayment} onClose={() => setViewPayment(null)} title="Payment verification" subtitle="Review the payment screenshot and confirm or reject the booking." size="lg" intent="info" icon={<ShieldCheck size={20} />}>
+        {viewPayment && (
+          <div className="grid md:grid-cols-2 gap-5">
+            <div>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-ink-500">Screenshot</p>
+              <div className="mt-2 rounded-2xl border border-ink-100 bg-ink-50 p-2">
+                <img src={viewPayment.paymentScreenshot} alt="payment screenshot" className="w-full max-h-[60vh] object-contain rounded-xl" />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <p className="text-[10px] uppercase tracking-widest font-bold text-ink-500">Patient</p>
+                <p className="font-bold text-ink-900">{viewPayment.patientName}</p>
+                <p className="text-xs text-ink-500">{viewPayment.phone}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Department" value={viewPayment.department} />
+                <Field label="Doctor" value={viewPayment.doctor} />
+                <Field label="Date" value={viewPayment.date} />
+                <Field label="Time" value={viewPayment.time} />
+                <Field label="Method" value={viewPayment.paymentMethod || 'UPI'} />
+                <Field label="Amount" value={`₹${Number(viewPayment.paymentAmount || 0).toLocaleString('en-IN')}`} />
+              </div>
+              {viewPayment.transactionRef && (
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-ink-500">Transaction reference</p>
+                  <p className="font-mono text-sm text-ink-900 break-all">{viewPayment.transactionRef}</p>
+                </div>
+              )}
+              <div>
+                <p className="text-[10px] uppercase tracking-widest font-bold text-ink-500">Current status</p>
+                <div className="mt-1"><StatusBadge status={viewPayment.status} /></div>
+              </div>
+
+              {viewPayment.status === 'Pending Verification' ? (
+                <div className="pt-2 flex gap-2">
+                  <button onClick={() => rejectPayment(viewPayment)} className="btn-outline flex-1 !text-rose-600 !border-rose-200 hover:!bg-rose-50"><X size={16} /> Reject</button>
+                  <button onClick={() => verifyPayment(viewPayment)} className="btn-primary flex-1 shine"><ShieldCheck size={16} /> Verify & confirm</button>
+                </div>
+              ) : (
+                <div className="rounded-2xl bg-ink-50 p-3 text-xs text-ink-600">
+                  Already <strong>{viewPayment.paymentStatus || viewPayment.status}</strong>
+                  {viewPayment.verifiedAt && ` · ${new Date(viewPayment.verifiedAt).toLocaleString()}`}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
+    </div>
+  )
+}
+
+function Field({ label, value }) {
+  return (
+    <div>
+      <p className="text-[10px] uppercase tracking-widest font-bold text-ink-500">{label}</p>
+      <p className="text-sm font-semibold text-ink-900">{value || '—'}</p>
     </div>
   )
 }

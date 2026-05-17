@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
+import { Plus, Pencil, Trash2, Upload, PenLine } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import Modal from '../../components/ui/Modal.jsx'
@@ -66,7 +66,7 @@ export default function Blogs() {
         </Stagger>
       )}
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit post' : 'New post'} size="lg">
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit post' : 'New post'} subtitle={editId ? 'Refine your article.' : 'Publish a new article for the blog.'} size="lg" icon={<PenLine size={20} />} intent={editId ? 'info' : 'default'}>
         <form onSubmit={save} className="grid gap-4">
           <div className="flex items-center gap-4">
             {form.thumbnail && <img src={form.thumbnail} className="h-16 w-24 rounded-lg object-cover" />}

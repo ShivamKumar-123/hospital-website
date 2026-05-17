@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Pencil, Trash2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, Layers } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import Modal from '../../components/ui/Modal.jsx'
@@ -68,7 +68,7 @@ export default function Departments() {
         </Stagger>
       )}
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit department' : 'Add department'}>
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit department' : 'Add department'} subtitle={editId ? 'Update specialty details.' : 'Create a new specialty.'} icon={<Layers size={20} />} intent={editId ? 'info' : 'default'}>
         <form onSubmit={save} className="grid gap-4">
           <div><label className="label">Name *</label><input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
           <div><label className="label">Image URL</label><input className="input" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="https://..." /></div>

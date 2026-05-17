@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { Search, Twitter, Linkedin, ArrowUpRight } from 'lucide-react'
+import { useState, useMemo, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Search, Twitter, Linkedin, ArrowUpRight, X } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import PageHero from '../../components/public/PageHero.jsx'
 import { Stagger, Item } from '../../components/anim/Reveal.jsx'
@@ -18,8 +18,15 @@ export default function Doctors() {
 
   const { items } = useLocalCollection('doctors')
   const { items: departments } = useLocalCollection('departments')
+  const location = useLocation()
   const [q, setQ] = useState('')
-  const [dept, setDept] = useState('All')
+  const [dept, setDept] = useState(location.state?.department || 'All')
+
+  // If the user navigates here again with a different department in state,
+  // sync the filter (e.g. clicking a different department card).
+  useEffect(() => {
+    if (location.state?.department) setDept(location.state.department)
+  }, [location.state?.department])
 
   const filtered = useMemo(() => {
     return items.filter((d) =>
@@ -48,6 +55,23 @@ export default function Doctors() {
       </PageHero>
 
       <section className="container-xl pb-20">
+        {dept !== 'All' && (
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <span className="text-xs uppercase tracking-widest font-bold text-ink-500">Filtered by department</span>
+            <span className="chip bg-gradient-to-r from-cyan-100 to-violet-100 text-ink-800 border border-cyan-200 font-bold pr-1">
+              {dept}
+              <button
+                onClick={() => setDept('All')}
+                aria-label="Clear filter"
+                className="ml-1 h-5 w-5 rounded-full bg-white/80 hover:bg-white text-ink-600 flex items-center justify-center transition"
+              >
+                <X size={12} />
+              </button>
+            </span>
+            <span className="text-xs text-ink-500">{filtered.length} doctor{filtered.length === 1 ? '' : 's'} available</span>
+          </div>
+        )}
+
         <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filtered.map((d) => (
             <Item key={d.id}>

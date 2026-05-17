@@ -101,7 +101,7 @@ export default function Patients() {
         <div className="px-4 pb-4"><Pagination page={page} pages={pages} onPage={setPage} /></div>
       </div>
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit patient' : 'Add patient'} size="lg">
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title={editId ? 'Edit patient' : 'Add patient'} subtitle={editId ? 'Update the patient record.' : 'Register a new patient.'} size="lg" icon={<User size={20} />} intent={editId ? 'info' : 'default'}>
         <form onSubmit={save} className="grid sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2 flex items-center gap-4">
             {form.photo ? <img src={form.photo} className="h-16 w-16 rounded-full object-cover" /> : <div className="h-16 w-16 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center"><User size={28} /></div>}
@@ -122,7 +122,7 @@ export default function Patients() {
         </form>
       </Modal>
 
-      <Modal open={!!view} onClose={() => setView(null)} title="Patient profile">
+      <Modal open={!!view} onClose={() => setView(null)} title="Patient profile" icon={<User size={20} />} intent="info">
         {view && (
           <div className="space-y-3">
             <div className="flex items-center gap-4">

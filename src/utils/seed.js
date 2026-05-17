@@ -86,7 +86,9 @@ export const seedAll = () => {
     twitter: 'https://twitter.com',
     instagram: 'https://instagram.com',
     linkedin: 'https://linkedin.com',
-    themePrimary: '#0891b2'
+    themePrimary: '#0891b2',
+    upiId: 'medicare@upi',
+    consultationFee: 500
   })
 
   seedIfEmpty(KEYS.departments, [
@@ -123,9 +125,9 @@ export const seedAll = () => {
   ])
 
   seedIfEmpty(KEYS.appointments, [
-    { id: 'a1', patientName: 'Ravi Sharma', phone: '+1 555 0101', department: 'Cardiology', doctor: 'Dr. Aarav Mehta', date: new Date(Date.now() + 86400000).toISOString().slice(0, 10), time: '10:30', symptoms: 'Chest tightness on exertion', status: 'Approved' },
-    { id: 'a2', patientName: 'Emily Brooks', phone: '+1 555 0102', department: 'Gynecology', doctor: 'Dr. Olivia Park', date: new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10), time: '14:00', symptoms: 'Routine checkup', status: 'Pending' },
-    { id: 'a3', patientName: 'Liam Walker', phone: '+1 555 0103', department: 'Pediatrics', doctor: 'Dr. Sofia Rossi', date: new Date().toISOString().slice(0, 10), time: '09:00', symptoms: 'Cough and mild fever', status: 'Completed' }
+    { id: 'a1', patientName: 'Ravi Sharma', phone: '+1 555 0101', department: 'Cardiology', doctor: 'Dr. Aarav Mehta', date: new Date(Date.now() + 86400000).toISOString().slice(0, 10), time: '10:30', symptoms: 'Chest tightness on exertion', status: 'Approved', paymentStatus: 'Verified', paymentMethod: 'UPI', paymentAmount: 500 },
+    { id: 'a2', patientName: 'Emily Brooks', phone: '+1 555 0102', department: 'Gynecology', doctor: 'Dr. Olivia Park', date: new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10), time: '14:00', symptoms: 'Routine checkup', status: 'Pending', paymentStatus: 'Verified', paymentMethod: 'UPI', paymentAmount: 500 },
+    { id: 'a3', patientName: 'Liam Walker', phone: '+1 555 0103', department: 'Pediatrics', doctor: 'Dr. Sofia Rossi', date: new Date().toISOString().slice(0, 10), time: '09:00', symptoms: 'Cough and mild fever', status: 'Completed', paymentStatus: 'Verified', paymentMethod: 'QR Code', paymentAmount: 500 }
   ])
 
   seedIfEmpty(KEYS.ambulance, [

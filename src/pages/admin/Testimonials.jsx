@@ -64,7 +64,7 @@ export default function Testimonials() {
         </Stagger>
       )}
 
-      <Modal open={openForm} onClose={() => setOpenForm(false)} title="Add testimonial">
+      <Modal open={openForm} onClose={() => setOpenForm(false)} title="Add testimonial" subtitle="Capture what patients love about MediCare+." icon={<Star size={20} />} intent="default">
         <form onSubmit={save} className="grid sm:grid-cols-2 gap-4">
           <div><label className="label">Name *</label><input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
           <div><label className="label">Role</label><input className="input" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} /></div>

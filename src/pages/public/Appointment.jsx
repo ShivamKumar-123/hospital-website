@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { CheckCircle, Calendar, Clock, User, Phone, Mail, ArrowUpRight, Shield, LogIn } from 'lucide-react'
+import { CheckCircle, Calendar, Clock, User, Phone, Mail, ArrowUpRight, Shield, LogIn, CreditCard } from 'lucide-react'
 import { useLocalCollection } from '../../hooks/useLocalCollection.js'
 import { useToast } from '../../context/ToastContext.jsx'
 import { useAuth } from '../../context/AuthContext.jsx'
-import { addRecord } from '../../utils/storage.js'
+import { useSettings } from '../../context/SettingsContext.jsx'
 import PageHero from '../../components/public/PageHero.jsx'
 import Reveal from '../../components/anim/Reveal.jsx'
 
 import { useSeo } from '../../utils/seo.js'
+
+const PENDING_KEY = 'medicare:pending-appointment'
 
 export default function Appointment() {
   useSeo({
@@ -23,6 +24,7 @@ export default function Appointment() {
   const { items: doctors } = useLocalCollection('doctors')
   const { toast } = useToast()
   const { user } = useAuth()
+  const { settings } = useSettings()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -35,10 +37,11 @@ export default function Appointment() {
     date: '', time: '', symptoms: ''
   })
   const [errors, setErrors] = useState({})
-  const [done, setDone] = useState(false)
 
   const filteredDoctors = doctors.filter((d) => !form.department || d.department === form.department)
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+
+  const fee = Number(settings.consultationFee || 500)
 
   const validate = () => {
     const e = {}
@@ -55,34 +58,10 @@ export default function Appointment() {
 
   const submit = (e) => {
     e.preventDefault()
-    if (!validate()) return
-    addRecord('appointments', {
-      ...form,
-      status: 'Pending',
-      userId: user?.id || null,    // link to logged-in patient (if any)
-      userEmail: user?.email || form.email
-    })
-    addRecord('notifications', { title: 'New appointment request', message: `${form.patientName} requested ${form.department}`, type: 'appointment', read: false })
-    toast('Appointment booked successfully!', 'success')
-    setDone(true)
-    setTimeout(() => navigate('/'), 2500)
-  }
-
-  if (done) {
-    return (
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div aria-hidden className="absolute inset-0 mesh-bg" />
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="container-xl relative">
-          <div className="max-w-md mx-auto glass p-10 text-center">
-            <div className="h-20 w-20 mx-auto rounded-3xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white flex items-center justify-center text-4xl shadow-glow">
-              <CheckCircle />
-            </div>
-            <h2 className="font-display text-3xl font-extrabold mt-5">You're booked!</h2>
-            <p className="text-ink-500 mt-3">A confirmation will be sent to your phone shortly. Redirecting home...</p>
-          </div>
-        </motion.div>
-      </section>
-    )
+    if (!validate()) { toast('Please fix the highlighted fields', 'error'); return }
+    // Persist for refresh-resilience and pass via route state for fast path.
+    localStorage.setItem(PENDING_KEY, JSON.stringify(form))
+    navigate('/appointment/payment', { state: { form } })
   }
 
   return (
@@ -175,8 +154,20 @@ export default function Appointment() {
               <label className="label">Symptoms / notes</label>
               <textarea rows="4" className="input" value={form.symptoms} onChange={(e) => set('symptoms', e.target.value)} placeholder="Describe symptoms..." />
             </div>
-            <div className="sm:col-span-2">
-              <button type="submit" className="btn-primary w-full !py-3.5 !text-base shine">Confirm appointment <ArrowUpRight /></button>
+            <div className="sm:col-span-2 space-y-3">
+              <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-cyan-50 via-violet-50 to-pink-50 border border-cyan-100 px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-500 text-white flex items-center justify-center"><CreditCard size={18} /></div>
+                  <div>
+                    <p className="text-xs font-bold text-ink-500 uppercase tracking-wider">Consultation fee</p>
+                    <p className="font-display text-2xl font-extrabold text-ink-900">₹{fee.toLocaleString('en-IN')}</p>
+                  </div>
+                </div>
+                <span className="text-xs text-ink-500 text-right">Pay via UPI or QR<br />on the next step</span>
+              </div>
+              <button type="submit" className="btn-primary w-full !py-3.5 !text-base shine">
+                <CreditCard size={16} /> Continue to payment <ArrowUpRight />
+              </button>
             </div>
           </form>
         </Reveal>

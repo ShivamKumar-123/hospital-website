@@ -4,7 +4,7 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 
 ---
 
-## 1. Public Website (10 pages)
+## 1. Public Website (11 pages)
 
 ### 1.1 Home (`/`)
 - Multi-slide immersive hero with auto-rotation, gradient overlays and slide indicators
@@ -29,21 +29,23 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 - Live search filter
 - Hover-tilt card animations
 - Doctor count per department
+- **Entire card is clickable** (keyboard accessible) — navigates to `/doctors` pre-filtered by that department
 
 ### 1.4 Doctors (`/doctors`)
 - Doctor profile cards (photo, qualification, experience, status)
 - Filter by department + live search
 - Social media links (Twitter, LinkedIn)
-- "Book appointment" CTA per doctor
+- "Book appointment" CTA per doctor — passes selected doctor + department to the booking form
 - Available / On Leave status chips
+- **Auto-filter** when arriving from a department card — shows a "Filtered by department" chip with one-click × clear, and a live "N doctors available" count
 
 ### 1.5 Appointment (`/appointment`)
 - Multi-field booking form (patient, phone, email, department, doctor, date, time, symptoms)
 - Department → doctor cascade dropdown
 - Inline validation (email, phone, required fields)
-- Saves to LocalStorage + pushes a notification
-- Success toast confirmation
-- Auto-fill from logged-in patient account
+- **Auto-fill** from logged-in patient account *and* from the doctor card that linked here (department + doctor pre-selected)
+- "Continue to payment" CTA shows the consultation fee inline and routes to the payment step
+- Submission is **two-step**: form → payment → admin verification → confirmed
 
 ### 1.6 Packages (`/packages`)
 - 6 health-checkup packages (Full Body, Diabetes, Heart, Women, Senior, Executive)
@@ -76,6 +78,17 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 - Embedded location map
 - Phone, email, hours and address cards
 - Social media links (Facebook, Twitter, Instagram, LinkedIn)
+
+### 1.11 Payment (`/appointment/payment`)
+- Two payment methods: **UPI ID** (copyable + `upi://pay` deep link) and **QR Code** (live-generated, encodes the same UPI deep link)
+- Booking summary card (patient, dept, doctor, date, time, amount) on the side
+- Drag-drop screenshot upload (image only, ≤2 MB) with live preview and "click to replace"
+- Optional transaction reference field
+- Refresh-resilient — form data persisted to `localStorage` so a hard refresh doesn't lose the booking
+- Creates the appointment with `status: 'Pending Verification'` + `paymentStatus: 'Awaiting Verification'` + base64 screenshot + amount + method + paid timestamp
+- Pushes an admin notification with the amount and patient name
+- Success screen explains the verification timeline, then auto-redirects to `/account` (patient) or `/`
+- Configurable UPI ID & consultation fee via settings (default `medicare@upi`, ₹500)
 
 ---
 
@@ -122,10 +135,13 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 ### 4.2 Appointments (`/admin/appointments`)
 - Full CRUD (create, edit, delete)
 - Approve / Reject / Mark Completed actions
-- Status filter (All / Pending / Approved / Completed)
+- Status filter (All / Pending / **Pending Verification** / Approved / Completed / Rejected)
 - Search by patient or doctor
 - Pagination
 - CSV export
+- **Payment verification column** — screenshot thumbnail + amount + colour-coded payment status (amber = awaiting, emerald = verified, rose = rejected)
+- **Payment viewer modal** (large) — full-size screenshot, booking metadata, payment method/amount, transaction ref, with one-tap **Verify & confirm** or **Reject** buttons
+- Verifying flips the row to `Approved` + `Verified`; rejecting flips it to `Rejected` — both stamp `verifiedAt`
 
 ### 4.3 Patients (`/admin/patients`)
 - Full CRUD with photo upload (base64)
@@ -207,11 +223,14 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 - Smooth fade-out once React mounts
 
 ### 5.5 Components
-- Modal, ConfirmDialog, Toast (Framer Motion)
+- **Premium Modal** — gradient ribbon top accent, optional icon circle (spring-animated), subtitle slot, intent system (`default | success | warning | danger | info`), 4 sizes (`sm / md / lg / xl`), layered backdrop with radial accents, outer gradient ring, ambient mesh blobs, rotating close button
+- **Premium ConfirmDialog** — large iconified avatar with **pulsing ping ring**, intent-aware icons (ShieldAlert / AlertTriangle / HelpCircle / CheckCircle2), full-width buttons on mobile, custom icon override
+- **Premium Toast** — spring slide-in from right, gradient left bar, animated icon in colored circle, **live progress bar** (shrinks over the timeout), title + message support, manual dismiss with rotating X, layout-aware stack reflow
 - EmptyState, Skeleton loaders
-- Pagination, StatusBadge, ScrollToTop
+- Pagination, StatusBadge (now includes `Pending Verification`, `Verified`), ScrollToTop
 - WaveDivider (top/bottom), Loader
 - ThemeToggle (sun/moon icon)
+- All admin form modals pass a contextual icon + intent (Calendar for appointments, Truck for ambulance, Stethoscope for doctors, Layers for departments, PenLine for blogs, Star for testimonials, User for patients, ShieldCheck for payment verification)
 
 ### 5.6 Responsiveness
 - Fully responsive grids and tables
@@ -244,10 +263,12 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 
 ### 6.4 Seeded data
 - 10 departments, 10 doctors, 4 patients
-- 3 appointments, 1 ambulance request
+- 3 appointments (all with verified payment metadata so the admin schema looks consistent)
+- 1 ambulance request
 - 3 blogs, 3 testimonials, 3 notifications
 - Admin + demo-patient user accounts
 - Default hospital settings & theme color
+- **Payment defaults** in settings: `upiId: 'medicare@upi'`, `consultationFee: 500`
 
 ---
 
@@ -259,7 +280,7 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 - JSON-LD structured data:
   - **Hospital** schema (address, phone, hours, specialties, sameAs)
   - **WebSite** schema with `SearchAction` for sitelinks search
-- `robots.txt` (allows public, disallows `/admin`, `/login`, `/account`)
+- `robots.txt` (allows public, disallows `/admin`, `/login`, `/account`); `/appointment/payment` is `noindex` via the SEO hook
 - `sitemap.xml` (10 public URLs with priority & changefreq)
 - `noindex` opt-in for sensitive pages
 - Configurable site URL via `VITE_SITE_URL`
@@ -288,20 +309,43 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 
 ---
 
-## 10. Extras
+## 10. Smart cross-page flow
+
+The booking funnel is wired end-to-end — three clicks from a department to a paid booking, zero re-typing:
+
+```
+/departments         → click any department card (whole card is clickable)
+       ↓ navigates with state.department
+/doctors             → auto-filters to that department, shows clearable filter chip
+       ↓ click "Book appointment" on a doctor card
+/appointment         → form pre-fills with department + doctor (and patient details if logged in)
+       ↓ fill date/time → "Continue to payment"
+/appointment/payment → UPI or QR, upload screenshot, submit
+       ↓ admin verifies in /admin/appointments
+status: Approved · Verified
+```
+
+- Route state (`location.state`) carries selections forward
+- LocalStorage backs up the appointment form between the form step and the payment step (refresh-resilient)
+- Filter chip on the Doctors page is reset-able with one click
+- "Appointment" link added directly to the public navbar between *Doctors* and *Packages* for fast access
+
+---
+
+## 11. Extras
 
 - **Currency** — Indian Rupee (₹) with `en-IN` lakh/crore grouping
 - **CSV export** — Appointments and Ambulance pages
-- **Image upload** — base64-encoded for patients, doctors, departments, blogs, settings logo
+- **Image upload** — base64-encoded for patients, doctors, departments, blogs, settings logo, **payment screenshots**
 - **Search & filters** — present on every list page (departments, doctors, blogs, appointments, etc.)
 - **Pagination** — admin tables auto-paginate at 10 rows
-- **Confirm dialogs** — destructive actions are guarded
+- **Confirm dialogs** — destructive actions are guarded with the premium intent-aware ConfirmDialog
 - **Reset data** — single-line console command resets everything
 - **No backend required** — fully static; deploy to any CDN (Vercel, Netlify, GitHub Pages)
 
 ---
 
-## 11. Tech Stack
+## 12. Tech Stack
 
 | Concern        | Library                  |
 |----------------|--------------------------|
@@ -317,9 +361,10 @@ A premium Hospital Management Website built with **React 18 + Vite + Tailwind CS
 
 ---
 
-## 12. Total page count
+## 13. Total page count
 
-- **10 public pages** + **3 account pages** + **10 admin pages** + **2 auth pages** = **25 routes**
+- **11 public pages** + **3 account pages** + **10 admin pages** + **2 auth pages** = **26 routes**
 - **~30 reusable components** (UI primitives + animations + dashboard widgets)
 - **4 context providers** + **3 custom hooks**
 - **10 LocalStorage collections** with full CRUD
+- **2-step appointment booking flow** with payment + admin verification
