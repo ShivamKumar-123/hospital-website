@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { LayoutGrid, Calendar, Users, User, Layers, Truck, PenLine, Star, Bell, Settings, LogOut, X, ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -25,6 +26,21 @@ export default function Sidebar({ open, onClose }) {
   const { items: notifications } = useLocalCollection('notifications')
   const { items: ambulance } = useLocalCollection('ambulance')
 
+  // Track the lg breakpoint reactively. Reading window.innerWidth inline in
+  // the animate prop is unreliable — it doesn't update on resize or when
+  // DevTools is toggled, so the X button silently fails to close the sidebar
+  // when the viewport flips between mobile and desktop widths.
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+  )
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const onChange = (e) => setIsDesktop(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
   // Brand split — first word big, rest tiny (matches Navbar/Footer behaviour).
   const parts = (settings.hospitalName || 'Hospital').split(' ')
   const brandLine1 = parts[0]
@@ -50,7 +66,7 @@ export default function Sidebar({ open, onClose }) {
 
       <motion.aside
         initial={false}
-        animate={{ x: open || window.innerWidth >= 1024 ? 0 : -320 }}
+        animate={{ x: isDesktop || open ? 0 : -320 }}
         transition={{ type: 'tween', duration: 0.3 }}
         className="fixed lg:sticky z-40 top-0 left-0 h-screen w-72 bg-ink-950 text-white flex flex-col overflow-hidden"
       >
