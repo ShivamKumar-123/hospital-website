@@ -105,26 +105,27 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-1.5 shrink-0">
             {/* Theme toggle */}
             <ThemeToggle variant={onHomeHero ? 'default' : 'subtle'} />
 
             <a href={`tel:${settings.emergency}`}
-              className={`btn !py-2 !px-4 group ${onHomeHero ? 'text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur' : 'btn-outline'}`}>
+              title="Emergency"
+              className={`btn !py-2 !px-3 group whitespace-nowrap ${onHomeHero ? 'text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur' : 'btn-outline'}`}>
               <Phone size={14} className="group-hover:rotate-12 transition" />
-              <span>Emergency</span>
+              <span className="hidden xl:inline">Emergency</span>
             </a>
 
             {!user ? (
               // ============ Logged OUT — show Sign in + Book Now ============
               <>
                 <Link to="/account/login"
-                  className={`btn !py-2 !px-4 ${onHomeHero ? 'text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur' : 'btn-outline'}`}>
-                  <LogIn size={14} /> Sign in
+                  className={`btn !py-2 !px-3.5 whitespace-nowrap ${onHomeHero ? 'text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur' : 'btn-outline'}`}>
+                  <LogIn size={14} /> <span className="hidden xl:inline">Sign in</span>
                 </Link>
                 <div className="p-[1px] rounded-full bg-gradient-to-r from-white/60 to-transparent">
                   <Link to="/appointment"
-                    className="flex items-center gap-2 bg-[#A6FF5D] hover:bg-[#A6FF5D]/90 text-slate-900 font-semibold px-4 py-2 rounded-full text-sm transition cursor-pointer group">
+                    className="flex items-center gap-2 bg-[#A6FF5D] hover:bg-[#A6FF5D]/90 text-slate-900 font-semibold px-4 py-2 rounded-full text-sm whitespace-nowrap transition cursor-pointer group">
                     <Sparkles size={14} />
                     <span className="slide-text">
                       <span>Book Now</span>
